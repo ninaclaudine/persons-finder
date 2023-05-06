@@ -38,23 +38,30 @@ class LocationController @Autowired constructor(
         if(Optional.empty<Person>() != personRep.findById(id.toLong())) {
 
             val locList: MutableList<Location> = locationRepository.findAll().toMutableList()
+            locList.removeIf { e->e.referenceId.equals(id.toLong()) }
             val latitudeList: MutableList<Double> = mutableListOf<Double>()
             val longitudeList: MutableList<Double> = mutableListOf<Double>()
 
             locList.forEach { e -> latitudeList.add(e.latitude) }
             locList.forEach { e -> longitudeList.add(e.longitude) }
+            val indexToRemove : MutableList<Long>  = mutableListOf<Long>()
 
+            println(locList)
             for (index in 0..locList.size - 1) {
-                var distance: Double = locImpl.findAround(latitudeList.get(index), longitudeList.get(index), radiusInKm)
-                println(distance)
+                var distance: Double = locImpl.findAround(latitudeList.get(index), longitudeList.get(index), radiusInKm,id)
+                println(" "+distance+ " is within " + radiusInKm +"?")
                 if (radiusInKm < distance) {
-                    locList.removeAt(index)
+                    indexToRemove.add(locList.get(index).referenceId)
                 }
+            }
+            indexToRemove.forEach { forremoval->
+                locList.removeIf {
+                    e->e.referenceId == forremoval }
             }
 
             return locList
         }else{
-            return null
+            throw Exception("Person ID Not Found!");
         }
     }
 }

@@ -5,5 +5,5 @@ import com.persons.finder.data.Location
 interface LocationsService {
     fun addLocation(location: Location)
     fun removeLocation(locationReferenceId: Long)
-    fun findAround(latitude: Double, longitude: Double, radiusInKm: Double) : Double
+    fun findAround(latitude: Double, longitude: Double, radiusInKm: Double, id : Long) : Double
 }
