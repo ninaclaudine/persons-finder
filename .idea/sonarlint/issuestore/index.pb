@@ -1,6 +1,4 @@
 
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 h
 8src/main/kotlin/com/persons/finder/ApplicationStarter.kt,f/3/f3803254a2cfeaaead77fe53ece181634b6f4241
 ;
